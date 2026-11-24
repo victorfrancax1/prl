@@ -888,11 +888,13 @@ func TestCodex56ModelsIncludeMaxEffort(t *testing.T) {
 			{label: codexReviewModel6Luna, value: codexReviewModel6Luna},
 			{label: codexReviewModel6Sol, value: codexReviewModel6Sol},
 			{label: codexReviewModel61Sol, value: codexReviewModel61Sol},
+			{label: codexReviewModel62Sol, value: codexReviewModel62Sol},
 			{label: codexReviewModel6Astra, value: codexReviewModel6Astra},
+			{label: codexReviewModel62Astra, value: codexReviewModel62Astra},
 		},
 		reviewModelChoices(nil, reviewProviderCodex),
 	)
-	require.Equal(t, codexReviewModel6Astra, defaultReviewModel(nil, reviewProviderCodex))
+	require.Equal(t, codexReviewModel62Astra, defaultReviewModel(nil, reviewProviderCodex))
 	require.Equal(
 		t,
 		[]filterChoice{
@@ -912,7 +914,7 @@ func TestCodex56ModelsIncludeMaxEffort(t *testing.T) {
 }
 
 func TestCodexSolAndLunaEfforts(t *testing.T) {
-	for _, model := range []string{codexReviewModel61Sol, codexReviewModel6Sol, codexReviewModel6Luna} {
+	for _, model := range []string{codexReviewModel62Sol, codexReviewModel61Sol, codexReviewModel6Sol, codexReviewModel6Luna} {
 		t.Run(model, func(t *testing.T) {
 			require.Equal(
 				t,
@@ -951,7 +953,7 @@ func TestCodexSolAndLunaEfforts(t *testing.T) {
 	}
 }
 
-func TestBuildAIReviewCommandUsesCodex6AstraByDefault(t *testing.T) {
+func TestBuildAIReviewCommandUsesCodex62AstraByDefault(t *testing.T) {
 	pr := testReviewPullRequest()
 	cmd := buildAIReviewCommand(
 		pr,
@@ -963,7 +965,7 @@ func TestBuildAIReviewCommandUsesCodex6AstraByDefault(t *testing.T) {
 	require.Equal(
 		t,
 		expectedAIReviewBaseCommand(pr)+
-			`codex --sandbox read-only -m gpt-6-astra -c model_reasoning_effort=high "$(/bin/cat /tmp/prl-prompt.txt)"; rm -f /tmp/prl-prompt.txt`,
+			`codex --sandbox read-only -m gpt-6.2-astra -c model_reasoning_effort=high "$(/bin/cat /tmp/prl-prompt.txt)"; rm -f /tmp/prl-prompt.txt`,
 		cmd,
 	)
 }
@@ -1049,7 +1051,7 @@ func TestGeminiEffortRulesUseCatchAllGlob(t *testing.T) {
 }
 
 func TestCodexUltraEffortCommands(t *testing.T) {
-	for _, model := range []string{codexReviewModel6Astra, codexReviewModel56Sol, codexReviewModel56Terra} {
+	for _, model := range []string{codexReviewModel62Astra, codexReviewModel6Astra, codexReviewModel56Sol, codexReviewModel56Terra} {
 		t.Run(model, func(t *testing.T) {
 			require.True(t, isValidReviewModel(nil, reviewProviderCodex, model))
 			require.True(

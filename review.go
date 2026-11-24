@@ -79,7 +79,9 @@ const (
 	claudeReviewModelSonnet = "sonnet"
 	claudeReviewModelOpus   = "opus"
 	claudeReviewModelFable  = "fable"
+	codexReviewModel62Astra = "gpt-6.2-astra"
 	codexReviewModel6Astra  = "gpt-6-astra"
+	codexReviewModel62Sol   = "gpt-6.2-sol"
 	codexReviewModel61Sol   = "gpt-6.1-sol"
 	codexReviewModel6Sol    = "gpt-6-sol"
 	codexReviewModel6Luna   = "gpt-6-luna"
@@ -158,9 +160,11 @@ var codexReviewConfig = reviewProviderConfig{
 		{label: codexReviewModel6Luna, value: codexReviewModel6Luna},
 		{label: codexReviewModel6Sol, value: codexReviewModel6Sol},
 		{label: codexReviewModel61Sol, value: codexReviewModel61Sol},
+		{label: codexReviewModel62Sol, value: codexReviewModel62Sol},
 		{label: codexReviewModel6Astra, value: codexReviewModel6Astra},
+		{label: codexReviewModel62Astra, value: codexReviewModel62Astra},
 	},
-	defaultModel: codexReviewModel6Astra,
+	defaultModel: codexReviewModel62Astra,
 }
 
 var geminiReviewConfig = reviewProviderConfig{
@@ -363,9 +367,11 @@ var codexSolEffortChoices = []filterChoice{
 }
 
 var codexEffortRules = []reviewEffortRule{
+	{pattern: codexReviewModel62Sol, choices: codexSolEffortChoices, def: codexReviewEffortMedium},
 	{pattern: codexReviewModel61Sol, choices: codexSolEffortChoices, def: codexReviewEffortMedium},
 	{pattern: codexReviewModel6Sol, choices: codexSolEffortChoices, def: codexReviewEffortMedium},
 	{pattern: codexReviewModel6Luna, choices: codexSolEffortChoices, def: codexReviewEffortMedium},
+	{pattern: codexReviewModel62Astra, choices: codexUltraEffortChoices, def: codexReviewEffortHigh},
 	{pattern: codexReviewModel6Astra, choices: codexUltraEffortChoices, def: codexReviewEffortHigh},
 	{pattern: codexReviewModel56Sol, choices: codexUltraEffortChoices, def: codexReviewEffortHigh},
 	{
